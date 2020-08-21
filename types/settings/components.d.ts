@@ -25,20 +25,27 @@ declare const Button: (props: {
 	list?: boolean;
 	onClick: (event: Event) => void;
 }) => JSX.Element;
-declare const Toggle: (props: {
-	settingsKey: string;
+declare const Toggle: <SettingsType extends object>(props: {
+	settingsKey: SettingsType extends object
+		? PickKeyByExtendsValue<SettingsType, boolean>
+		: string;
 	label?: JSX.Element;
 	onChange?: (newValue: boolean) => void;
 }) => JSX.Element;
-declare const Slider: (props: {
+declare const Slider: <SettingsType extends object>(props: {
 	label?: JSX.Element;
-	settingsKey?: string;
+	settingsKey: SettingsType extends object
+		? PickKeyByExtendsValue<SettingsType, number>
+		: string;
 	min: number | string;
 	max: number | string;
 	step?: number | string;
 	onChange?: (newValue: number) => void;
 }) => JSX.Element;
-declare const TextInput: <Option extends { name: string }>(props: {
+declare const TextInput: <
+	Option extends { name: string } | string,
+	SettingsType extends object = any
+>(props: {
 	title?: JSX.Element;
 	label?: JSX.Element;
 	placeholder?: string;
@@ -46,7 +53,9 @@ declare const TextInput: <Option extends { name: string }>(props: {
 	type?: string;
 	value?: string;
 	disabled?: boolean;
-	settingsKey?: string;
+	settingsKey?: SettingsType extends object
+		? PickKeyByExtendsValue<SettingsType, Option> // when autocomplete, an Option type can be preserved under the key
+		: string;
 	useSimpleValue?: boolean;
 	onChange?: (newValue: string) => void;
 	onAutocomplete?: (newValue: string) => ReadonlyArray<Option>;
@@ -56,18 +65,34 @@ declare const TextInput: <Option extends { name: string }>(props: {
 		newValue: string,
 	) => JSX.Element;
 }) => JSX.Element;
-declare const ColorSelect: <Value = string>(props: {
+declare const ColorSelect: <
+	Value = string,
+	SettingsType extends object = any
+>(props: {
 	colors: ReadonlyArray<{ color: string; value?: Value }>;
 	centered?: boolean;
-	settingsKey?: string;
+	settingsKey?: SettingsType extends object
+		? PickKeyByExtendsValue<SettingsType, Value>
+		: string;
 	value?: Value;
 	onSelection?: (value: Value) => void;
 }) => JSX.Element;
-declare const Select: <Option extends { name: string }>(props: {
+declare const Select: <
+	Option extends { name: string },
+	SettingsType extends object = any
+>(props: {
 	title?: JSX.Element;
 	selectViewtitle?: JSX.Element;
 	label?: JSX.Element;
-	settingsKey?: string;
+	settingsKey?: SettingsType extends object
+		? PickKeyByExtendsValue<
+				SettingsType,
+				{
+					values: Option[];
+					selected: number[];
+				}
+		  >
+		: string;
 	options: ReadonlyArray<Option>;
 	multiple?: boolean;
 	disabled?: boolean;
@@ -77,13 +102,18 @@ declare const Select: <Option extends { name: string }>(props: {
 		values: ReadonlyArray<Option>;
 	}) => void;
 }) => JSX.Element;
-declare const AdditiveList: <Option extends {
-	[k: string]: any;
-	name: string;
-}>(props: {
+declare const AdditiveList: <
+	Option extends {
+		[k: string]: any;
+		name: string;
+	},
+	SettingsType extends object = any
+>(props: {
 	title?: JSX.Element;
 	description?: JSX.Element;
-	settingsKey?: string;
+	settingsKey?: SettingsType extends object
+		? PickKeyByExtendsValue<SettingsType, Option[]>
+		: string;
 	minItems?: number | string;
 	maxItems?: number | string;
 	renderItem?: (item: Option) => JSX.Element;
@@ -124,7 +154,17 @@ declare const StravaLogin: (props: {
 	clientSecret?: string;
 	onAccessToken?: (accessToken: string, userInfo: any) => void;
 }) => JSX.Element;
-declare const ImagePicker: (props: {
+
+declare const ImagePicker: <
+	SettingsType extends object = any,
+	ImagePickResult = {
+		imageUri: string;
+		imageSize: {
+			width: number;
+			height: number;
+		};
+	}
+>(props: {
 	title?: JSX.Element;
 	description?: JSX.Element;
 	label?: JSX.Element;
@@ -132,7 +172,9 @@ declare const ImagePicker: (props: {
 	pickertitle?: JSX.Element;
 	pickerImagetitle?: JSX.Element;
 	pickerlabel?: JSX.Element;
-	settingsKey?: string;
+	settingsKey?: SettingsType extends object
+		? PickKeyByExtendsValue<SettingsType, ImagePickResult>
+		: string;
 	imageWidth?: number | string;
 	imageHeight?: number | string;
 	showIcon?: boolean;
