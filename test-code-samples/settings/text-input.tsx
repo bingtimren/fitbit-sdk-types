@@ -7,8 +7,8 @@
 	disabled={!(props.settings.toggleTextInput === 'true')}
 />;
 <TextInput
-	label={(<Text bold={true}>Embedded Text in Label</Text>)}
-	title={(<Text bold={true}>Embedded Text in Label</Text>)}
+	label={<Text bold={true}>Embedded Text in Label</Text>}
+	title={<Text bold={true}>Embedded Text in Label</Text>}
 	settingsKey="textInput"
 	disabled={!(props.settings.toggleTextInput === 'true')}
 />;

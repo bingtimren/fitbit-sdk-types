@@ -5,7 +5,7 @@
 />;
 
 <Select
-	label={<Text  bold={true}>Embedded Text in Label</Text>}
+	label={<Text bold={true}>Embedded Text in Label</Text>}
 	settingsKey="selection"
 	options={[{ name: 'One' }, { name: 'Two' }, { name: 'Three' }]}
 />;
