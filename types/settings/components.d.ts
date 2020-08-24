@@ -155,16 +155,15 @@ declare const StravaLogin: (props: {
 	onAccessToken?: (accessToken: string, userInfo: any) => void;
 }) => JSX.Element;
 
-declare const ImagePicker: <
-	SettingsType extends object = any,
-	ImagePickResult = {
-		imageUri: string;
-		imageSize: {
-			width: number;
-			height: number;
-		};
-	}
->(props: {
+type ImagePickerResult = {
+	imageUri: string;
+	imageSize: {
+		width: number;
+		height: number;
+	};
+};
+
+declare const ImagePicker: <SettingsType extends object = any>(props: {
 	title?: JSX.Element;
 	description?: JSX.Element;
 	label?: JSX.Element;
@@ -172,7 +171,9 @@ declare const ImagePicker: <
 	pickerTitle?: JSX.Element;
 	pickerImageTitle?: JSX.Element;
 	pickerLabel?: JSX.Element;
-	settingsKey?: string;
+	settingsKey?: SettingsType extends object
+		? PickKeyByExtendsValue<SettingsType, ImagePickerResult>
+		: string;
 	imageWidth?: number | string;
 	imageHeight?: number | string;
 	showIcon?: boolean;
