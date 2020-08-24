@@ -82,7 +82,7 @@ declare const Select: <
 	SettingsType extends object = any
 >(props: {
 	title?: JSX.Element;
-	selectViewtitle?: JSX.Element;
+	selectViewTitle?: JSX.Element;
 	label?: JSX.Element;
 	settingsKey?: SettingsType extends object
 		? PickKeyByExtendsValue<
@@ -169,12 +169,10 @@ declare const ImagePicker: <
 	description?: JSX.Element;
 	label?: JSX.Element;
 	sublabel?: JSX.Element;
-	pickertitle?: JSX.Element;
-	pickerImagetitle?: JSX.Element;
-	pickerlabel?: JSX.Element;
-	settingsKey?: SettingsType extends object
-		? PickKeyByExtendsValue<SettingsType, ImagePickResult>
-		: string;
+	pickerTitle?: JSX.Element;
+	pickerImageTitle?: JSX.Element;
+	pickerLabel?: JSX.Element;
+	settingsKey?: string;
 	imageWidth?: number | string;
 	imageHeight?: number | string;
 	showIcon?: boolean;
